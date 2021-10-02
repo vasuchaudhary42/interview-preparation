@@ -1,0 +1,38 @@
+https://soshace.com/author/shadidhaque2014/allcomments/
+https://blog.logrocket.com/author/albertogimeno/
+https://alvinlal.netlify.app/blog/single-thread-vs-child-process-vs-worker-threads-vs-cluster-in-nodejs
+
+#child processes
+#cluster
+#worker threads
+
+
+#child processes
+The child_process module provides the ability to spawn new processes which has their own memory.
+The communication between these processes is established through IPC (inter-process communication) provided by the operating system.
+
+There are mainly three methods inside this module that we care about.
+
+child_process.spawn()
+child_process.fork()
+child_process.exec()
+
+#child_process.spawn()
+This method is used to spawn a child process asynchronously.
+This child process can be any command that can be run from a terminal.
+
+#child_process.fork()
+child_process.fork() is specifically used to spawn new nodejs processes.
+Like spawn, the returned childProcess object will have built-in IPC communication channel that allows messages to be passed back and forth between the parent and child.
+
+1. Only parent to child process communication is possible and there is no child to child communication.
+2. Separate memory is allocated for each child process which means that there is a time and resource overhead.
+
+#Worker threads
+Worker threads can be used to solve the above-mentioned caveats with child processes because worker threads share memory and communication between threads is possible.
+Essentially the difference between worker threads and child processes is same as the difference between a thread and a process.Ideally,
+the number of threads created should be equal to number of cpu cores.
+
+#Cluster
+Cluster is mainly used for vertically (adding more power to your existing machine) scale your nodejs web server. It is built on top of the child_process module. In an Http server, the cluster module uses child_process.fork() to automatically fork processes and sets up a master-slave architecture where the parent process distributes the incoming request to the child processes in a round-robin fashion. Ideally, the number of processes forked should be equal to the number of cpu cores your machine has.
+

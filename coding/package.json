@@ -1,0 +1,20 @@
+{
+  "name": "coding",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server  --entry ./coding.js --output-filename ./public/dist/bundle.js --mode development --port 8000",
+    "dev": "webpack --entry ./coding.js --output-filename ./bundle.js --mode development --watch",
+    "build:prod": "webpack --entry ./coding.js --output-filename ./bundle.js --mode production"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^4.2.1"
+  }
+}

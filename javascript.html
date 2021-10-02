@@ -1,0 +1,253 @@
+<pre>
+1. The old HTML standard, HTML4, required a script to have a type. Usually it was type="text/javascript". Its not required anymore.
+2. The benefit of a separate file is that the browser will download it and store it in its cache.
+3. A single "script" tag cant have both the src attribute and code inside.
+4. JavaScript interprets the line break as an implicit” semicolon. This is called an <a href="https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion">automatic semicolon insertion</a>.
+5. Nested comments are not supported!.
+6. Please make sure that "use strict" is at the top of your scripts, otherwise strict mode may not be enabled.
+7. Theres no way to cancel use strict.
+</pre>
+<h4>There are two limitations on variable names in JavaScript:</h4>
+<ul>
+    <li>The name must contain only letters, digits, or the symbols $ and _.</li>
+    <li>The first character must not be a digit.</li>
+</ul>
+
+<li>Variables named apple and AppLE are two different variables.</li>
+
+<li>Normally, we need to define a variable before using it. But in the old times, it was technically possible to create a variable by a mere assignment of the value without using let. This still works now if we dont put use strict in our scripts to maintain compatibility with old scripts.</li>
+
+<li>capital-named constants are only used as aliases for hard-coded” values</li>
+
+<h3>There are eight basic data types in JavaScript:</h3>
+<ul>
+    <li>Number</li>
+    <li>BigInt</li>
+    <li>String</li>
+    <li>Boolean</li>
+    <li>null</li>
+    <li>undefined</li>
+    <li>object</li>
+    <li>Symbol</li>
+    <li>function</li>
+</ul>
+
+<li>The number type cannot represent integer values larger than (253-1) (thats 9007199254740991), or less than -(253-1) for negatives.</li>
+<li>A BigInt value is created by appending n to the end of an integer:  </li>
+<li>
+    // the n at the end means it's a BigInt
+    const bigInt = 1234567890123456789012345678901234567890n;
+</li>
+
+<h3>In JavaScript, there are 3 types of quotes.</h3>
+<ul>
+    <li>Double quotes: "Hello"</li>
+    <li>Single quotes: 'Hello'</li>
+    <li>Backticks: `Hello`</li>
+</ul>
+
+<li>
+    In JavaScript, null is not a reference to a non-existing object” or a "null pointer” like in some other languages.
+    Its just a special value which represents nothing”, empty” or value unknown”.
+</li>
+<li>
+    The special value undefined also stands apart. It makes a type of its own, just like null.
+    The meaning of undefined is value is not assigned”.
+    undefined is reserved as a default initial value for unassigned things.
+</li>
+<pre>
+    <b>number</b>: for numbers of any kind: integer or floating-point, integers are limited by ±(253-1).
+    <b>bigint</b>: is for integer numbers of arbitrary length.
+    <b>string</b>: for strings. A string may have zero or more characters, theres no separate single-character type.
+    <b>boolean</b>: for true/false.
+    <b>null</b>: for unknown values – a standalone type that has a single value null.
+    <b>undefined</b>: for unassigned values – a standalone type that has a single value undefined.
+    <b>object</b>: for more complex data structures.
+    <b>symbol</b>: for unique identifiers.
+</pre>
+<h3>Interaction: alert, prompt, confirm</h3>
+<ul>
+    <li>result = prompt(title, [default]);</li>
+    <li>confirm(question);</li>
+    <li>alert("Hello");</li>
+</ul>
+
+<h4>#The square brackets around default in the syntax above denote that the parameter is optional, not required.</h4>
+
+<li>Numeric Conversion: alert( "6" / "2" ); // 3, strings are converted to numbers</li>
+<pre>
+    let age = Number("an arbitrary string instead of a number");
+    alert(age); // NaN, conversion failed
+
+    alert( Number("   123   ") ); // 123
+    alert( Number("123z") );      // NaN (error reading a number at "z")
+    alert( Number(true) );        // 1
+    alert( Number(false) );       // 0
+    alert( Number(undefined) );       // NaN
+    alert( Number(null) );       // 0
+
+    alert( Boolean(1) ); // true
+    alert( Boolean(0) ); // false
+    alert( Boolean("hello") ); // true
+    alert( Boolean("") ); // false
+
+    alert( Boolean("0") ); // true
+    alert( Boolean(" ") ); // spaces, also true (any non-empty string is true)
+    alert( Boolean("") ); // false
+</pre>
+
+<h4>0, null, undefined, NaN, ""	 ===> false </h4>
+<h4>any other value	===> true</h4>
+
+<h4>String concatenation with binary +</h4>
+<pre>
+    let s = "my" + "string";
+    alert(s); // mystring
+
+    alert( '1' + 2 ); // "12"
+    1alert( 2 + '1' ); // "21"
+
+    alert(2 + 2 + '1' ); // "41" and not "221"
+
+    alert('1' + 2 + 2); // "122" and not "14"
+
+    alert( 6 - '2' ); // 4, converts '2' to a number
+    alert( '6' / '2' ); // 3, converts both operands to numbers
+
+    let apples = "2";
+    let oranges = "3";
+
+    // both values converted to numbers before the binary plus
+    alert( +apples + +oranges ); // 5
+</pre>
+<h3>Operator precedence: **  *  / * - =</h3>
+
+<h3>Assignment</h3>
+<pre>
+    The fact of = being an operator, not a “magical” language construct has an interesting implication.
+
+    All operators in JavaScript return a value. That’s obvious for + and -, but also true for =.
+
+    The call x = value writes the value into x and then returns it.
+
+    let a = 1;
+    let b = 2;
+
+    let c = 3 - (a = b + 1);
+
+    alert( a ); // 3
+    alert( c ); // 0
+</pre>
+
+<h4>Comma (,)</h4>
+<li>The comma operator allows us to evaluate several expressions, dividing them with a comma ,. Each of them is evaluated but only the result of the last one is returned.</li>
+<pre>
+    let a = (1 + 2, 3 + 4);
+    alert( a ); // 7 (the result of 3 + 4)
+</pre>
+
+<h2>Loops: while and for</h2>
+<pre>
+    Please note that syntax constructs that are not expressions cannot be used with the ternary operator ?. In particular, directives such as break/continue aren’t allowed there.
+    (i > 5) ? alert(i) : continue; // continue isn't allowed here
+</pre>
+<h2>The "switch" statement</h2>
+<pre>
+    The values must be of the same type to match.
+</pre>
+<h2>Functions</h2>
+<pre>
+    If a function does not return a value, it is the same as if it returns undefined
+
+    For a long expression in return, it might be tempting to put it on a separate line.
+    That doesn’t work, because JavaScript assumes a semicolon after return.
+
+    // Function Declaration
+    function sum(a, b) {
+      return a + b;
+    }
+
+    // Function Expression
+    let sum = function(a, b) {
+      return a + b;
+    };
+
+    #A Function Expression is created when the execution reaches it and is usable only from that moment.
+    Once the execution flow passes to the right side of the assignment let sum = function… – here we go, the function is created and can be used (assigned, called, etc. ) from now on.
+
+    #A Function Declaration can be called earlier than it is defined.
+    For example, a global Function Declaration is visible in the whole script, no matter where it is.
+    That’s due to internal algorithms. When JavaScript prepares to run the script, it first looks for global Function Declarations in it and creates the functions. We can think of it as an “initialization stage”.
+    And after all Function Declarations are processed, the code is executed. So it has access to these functions.
+
+    In strict mode, when a Function Declaration is within a code block, it’s visible everywhere inside that block. But not outside of it.
+</pre>
+
+<h2>Style Guides</h2>
+<ul>
+    <li><a href="https://google.github.io/styleguide/jsguide.html">Google JavaScript Style Guide</a></li>
+    <li><a href="https://github.com/airbnb/javascript">Airbnb JavaScript Style Guide</a></li>
+    <li><a href="https://github.com/rwaldron/idiomatic.js">Idiomatic.JS</a></li>
+    <li><a href="https://standardjs.com/">StandardJS</a></li>
+</ul>
+<h2>Automated Linters</h2>
+<ul>
+    <li><a href="http://www.jslint.com/">JSLint</a> – one of the first linters.</li>
+    <li><a href="http://www.jshint.com/">JSHint</a> – more settings than JSLint.</li>
+    <li><a href="http://eslint.org/">ESLint</a> – probably the newest one.</li>
+</ul>
+
+<pre>
+    For instance, for ESLint you should do the following:
+
+    Install Node.js.
+    Install ESLint with the command npm install -g eslint (npm is a JavaScript package installer).
+    Create a config file named .eslintrc in the root of your JavaScript project (in the folder that contains all your files).
+    Install/enable the plugin for your editor that integrates with ESLint. The majority of editors have one.
+
+    Here’s an example of an .eslintrc file:
+
+    {
+      "extends": "eslint:recommended",
+      "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+      },
+      "rules": {
+        "no-console": 0,
+        "indent": 2
+      }
+    }
+</pre>
+
+<h3>Comments</h3>
+<pre>
+     JSDoc 3 that can generate HTML-documentation from the comments
+</pre>
+<h3>Transpilers</h3>
+<pre>
+    A transpiler is a special piece of software that translates source code to another source code. It can parse (“read and understand”) modern code and rewrite it using older syntax constructs, so that it’ll also work in outdated engines.
+    E.g. JavaScript before year 2020 didn’t have the “nullish coalescing operator” ??. So, if a visitor uses an outdated browser, it may fail to understand the code like height = height ?? 100.
+
+    Usually, a developer runs the transpiler on their own computer, and then deploys the transpiled code to the server.
+    Speaking of names, Babel is one of the most prominent transpilers out there.
+    Modern project build systems, such as webpack, provide means to run transpiler automatically on every code change, so it’s very easy to integrate into development process.
+</pre>
+<h3>Polyfills</h3>
+<pre>
+    New language features may include not only syntax constructs and operators, but also built-in functions.
+    For example, Math.trunc(n) is a function that “cuts off” the decimal part of a number, e.g Math.trunc(1.23) returns 1.
+    In some (very outdated) JavaScript engines, there’s no Math.trunc, so such code will fail.
+    As we’re talking about new functions, not syntax changes, there’s no need to transpile anything here. We just need to declare the missing function.
+    A script that updates/adds new functions is called “polyfill”. It “fills in” the gap and adds missing implementations.
+
+    Two interesting libraries of polyfills are:
+
+    # core js that supports a lot, allows to include only needed features.
+    # polyfill.io service that provides a script with polyfills, depending on the features and user’s browser.
+</pre>
+<h3>Objects</h3>
+<pre>
+    As we know from the chapter Data types, there are eight data types in JavaScript. Seven of them are called “primitive”, because their values contain only a single thing (be it a string or a number or whatever).
+</pre>
